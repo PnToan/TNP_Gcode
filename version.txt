@@ -1,2 +1,2 @@
-version=0.12.8
+version=0.12.9
 rbz_url=https://raw.githubusercontent.com/PnToan/TNP_Gcode/main/TNP_Gcode.rbz
