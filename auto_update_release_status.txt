@@ -1,4 +1,0 @@
-tag=auto-update-stable
-commit=54719c704390360d3c19b6404ebaab7b06d204b3
-version_url=https://github.com/PnToan/TNP_Gcode/releases/download/auto-update-stable/version.txt
-rbz_url=https://github.com/PnToan/TNP_Gcode/releases/download/auto-update-stable/TNP_Sketch_Cut.rbz
