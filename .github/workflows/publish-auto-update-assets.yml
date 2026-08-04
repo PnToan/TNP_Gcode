@@ -42,3 +42,16 @@ jobs:
               --notes "Stable download assets used by TNP Sketch Cut Auto Update."
           fi
           gh release upload "$TAG" version.txt TNP_Sketch_Cut.rbz --clobber
+
+      - name: Record published asset status
+        shell: bash
+        run: |
+          set -euo pipefail
+          printf 'tag=auto-update-stable\ncommit=%s\nversion_url=https://github.com/PnToan/TNP_Gcode/releases/download/auto-update-stable/version.txt\nrbz_url=https://github.com/PnToan/TNP_Gcode/releases/download/auto-update-stable/TNP_Sketch_Cut.rbz\n' "$GITHUB_SHA" > auto_update_release_status.txt
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add auto_update_release_status.txt
+          if ! git diff --cached --quiet; then
+            git commit -m 'Update auto-update release status'
+            git push
+          fi
