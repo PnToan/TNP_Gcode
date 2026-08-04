@@ -1,0 +1,44 @@
+name: Publish Auto Update Assets
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - TNP_Sketch_Cut.rbz
+      - version.txt
+      - .github/workflows/publish-auto-update-assets.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate update files
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f version.txt
+          test -f TNP_Sketch_Cut.rbz
+          test "$(head -c 2 TNP_Sketch_Cut.rbz)" = "PK"
+
+      - name: Publish fixed release assets
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          TAG="auto-update-stable"
+          if ! gh release view "$TAG" >/dev/null 2>&1; then
+            gh release create "$TAG" \
+              --target "$GITHUB_SHA" \
+              --title "TNP Sketch Cut Auto Update" \
+              --notes "Stable download assets used by TNP Sketch Cut Auto Update."
+          fi
+          gh release upload "$TAG" version.txt TNP_Sketch_Cut.rbz --clobber
