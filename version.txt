@@ -1,2 +1,2 @@
 version=0.15.1
-rbz_url=https://raw.githubusercontent.com/PnToan/TNP_Gcode/main/TNP_Sketch_Cut.rbz
+rbz_url=https://github.com/PnToan/TNP_Gcode/releases/download/auto-update-stable/TNP_Sketch_Cut.rbz
